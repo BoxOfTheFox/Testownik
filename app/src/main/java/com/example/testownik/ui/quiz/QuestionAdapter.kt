@@ -1,4 +1,4 @@
-package com.example.testownik.quiz
+package com.example.testownik.ui.quiz
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

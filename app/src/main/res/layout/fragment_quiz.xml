@@ -2,15 +2,15 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".quiz.QuizFragment">
+    tools:context=".ui.quiz.QuizFragment">
 
 <!--    <data>-->
 <!--        <variable-->
 <!--            name="game"-->
-<!--            type="com.example.testownik.quiz.QuizFragment" />-->
+<!--            type="com.example.testownik.ui.quiz.QuizFragment" />-->
 <!--        <variable-->
 <!--            name="viewModel"-->
-<!--            type="com.example.testownik.quiz.QuizViewModel" />-->
+<!--            type="com.example.testownik.ui.quiz.QuizViewModel" />-->
 <!--    </data>-->
 
     <ScrollView

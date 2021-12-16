@@ -1,24 +1,8 @@
-package com.example.testownik.quiz
+package com.example.testownik.ui.quiz
 
-import android.net.Uri
-import android.os.Bundle
-import android.os.SystemClock
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
-import androidx.documentfile.provider.DocumentFile
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.NavHostFragment.findNavController
-import com.example.testownik.R
-import com.example.testownik.database.BaseDatabase
-import com.example.testownik.databinding.FragmentQuizBinding
-import com.example.testownik.viewModelFactory.ViewModelFactory
-import java.nio.charset.Charset
 
-//class QuizFragment : Fragment() {
+class QuizFragment : Fragment() {
 //
 //    private lateinit var viewModel: QuizViewModel
 //
@@ -114,4 +98,4 @@ import java.nio.charset.Charset
 //        binding.timer.stop()
 //
 //    }
-//}
+}

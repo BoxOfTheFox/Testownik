@@ -1,4 +1,4 @@
-package com.example.testownik.score
+package com.example.testownik.ui.score
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import com.example.testownik.R
-import com.example.testownik.databinding.FragmentQuizBinding
 import com.example.testownik.databinding.FragmentScoreBinding
 
 class ScoreFragment : Fragment() {

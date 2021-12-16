@@ -26,9 +26,17 @@ interface BaseDatabaseDao {
     @Query("DELETE FROM questions_table")
     suspend fun clearQuestions()
 
+    @Query("SELECT COUNT() FROM base_table WHERE id = :key")
+    fun getNumberOfQuestions(key: Long): LiveData<Long>
+
     @Transaction
     @Query("SELECT * FROM base_table WHERE id = :baseId")
     suspend fun getBaseWithQuestions(baseId: Long): BaseWithQuestions
+
+//    todo rozbić
+    @Transaction
+    @Query("SELECT * FROM base_table")
+    fun getAllBaseWithQuestions(): LiveData<List<BaseWithQuestions>>
 
     @Query("SELECT * FROM questions_table ORDER BY RANDOM() LIMIT 1")
     suspend fun getRandomQuestion(): Question?

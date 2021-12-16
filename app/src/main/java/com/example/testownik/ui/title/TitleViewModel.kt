@@ -1,4 +1,4 @@
-package com.example.testownik.title
+package com.example.testownik.ui.title
 
 import android.app.Application
 import android.content.Context
@@ -7,7 +7,7 @@ import android.net.Uri
 import android.widget.Toast
 import androidx.documentfile.provider.DocumentFile
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.viewModelScope
 import com.example.testownik.database.Answer
 import com.example.testownik.database.Base
 import com.example.testownik.database.BaseDatabaseDao
@@ -18,19 +18,11 @@ import java.nio.charset.Charset
 
 class TitleViewModel(val database: BaseDatabaseDao,application: Application) :
     AndroidViewModel(application) {
-    private var viewModelJob = Job()
 
-    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-
-    val bases = database.getAllBases()
-
-    override fun onCleared() {
-        super.onCleared()
-        viewModelJob.cancel()
-    }
+    val bases = database.getAllBaseWithQuestions()
 
     fun insertBase(context: Context, uri: Uri, base: Base) {
-        uiScope.launch {
+        viewModelScope.launch {
             try {
                 val baseId = async { insertBase(base) }
                 DocumentFile.fromTreeUri(context, uri)

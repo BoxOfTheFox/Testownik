@@ -1,10 +1,4 @@
-package com.example.testownik.quiz
-
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import com.example.testownik.database.BaseDatabaseDao
+package com.example.testownik.ui.quiz
 
 //class QuizViewModel(val database: BaseDatabaseDao, application: Application) :
 //    AndroidViewModel(application) {

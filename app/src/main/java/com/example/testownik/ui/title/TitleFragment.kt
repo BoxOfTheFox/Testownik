@@ -1,27 +1,25 @@
-package com.example.testownik.title
+package com.example.testownik.ui.title
 
 import android.os.Bundle
 import android.view.*
-import android.widget.Button
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
-import androidx.navigation.ui.NavigationUI
 import com.example.testownik.R
 import com.example.testownik.database.Base
 import com.example.testownik.database.BaseDatabase
 import com.example.testownik.databinding.FragmentTitleBinding
-import com.example.testownik.viewModelFactory.ViewModelFactory
+import com.example.testownik.ui.FragmentFloatingActionButton
+import com.example.testownik.ViewModelFactory
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import timber.log.Timber
 
 // fixme nawigacja - po powrocie z zakończonej gry back powraca do ScoreFragment
-class TitleFragment : Fragment() {
+class TitleFragment : Fragment(), FragmentFloatingActionButton {
 
     private lateinit var viewModel: TitleViewModel
 
+    // todo dodanie błędnej bazy
     private val chooseQuestionFolder =
         registerForActivityResult(ActivityResultContracts.OpenDocumentTree()) { uri ->
             uri?.let {
@@ -64,10 +62,13 @@ class TitleFragment : Fragment() {
             }
         })
 
-//        requireActivity().findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
-//            chooseQuestionFolder.launch(null)
-//        }
-
         return binding.root
     }
+
+    override fun listener(floatingActionButton: FloatingActionButton) {
+        floatingActionButton.setOnClickListener {
+            chooseQuestionFolder.launch(null)
+        }
+    }
 }
+
