@@ -14,16 +14,15 @@ class BaseSelectionAdapter: ListAdapter<BaseWithQuestions, BaseSelectionAdapter.
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position)) { notifyItemChanged(position) }
+        holder.bind(getItem(position))
     }
 
     class ViewHolder private constructor(private val binding: BaseItemLayoutBinding) : RecyclerView.ViewHolder(binding.root){
-        fun bind(item: BaseWithQuestions, function: () -> Unit){
+        fun bind(item: BaseWithQuestions){
             binding.baseWithQuestions = item
 
             binding.cardView.setOnLongClickListener {
                 it.isSelected = !it.isSelected
-                function
                 true
             }
         }
@@ -45,6 +44,6 @@ class BaseSelectionDiffCallback : DiffUtil.ItemCallback<BaseWithQuestions>() {
     }
 
     override fun areContentsTheSame(oldItem: BaseWithQuestions, newItem: BaseWithQuestions): Boolean {
-        return oldItem.base == newItem.base
+        return oldItem == newItem
     }
 }
