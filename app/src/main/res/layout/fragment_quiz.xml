@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".quiz.QuizFragment">
+
+<!--    <data>-->
+<!--        <variable-->
+<!--            name="game"-->
+<!--            type="com.example.testownik.quiz.QuizFragment" />-->
+<!--        <variable-->
+<!--            name="viewModel"-->
+<!--            type="com.example.testownik.quiz.QuizViewModel" />-->
+<!--    </data>-->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:id="@+id/frameLayout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content">-->
+<!--            <TextView-->
+<!--                android:id="@+id/questionText"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="32dp"-->
+<!--                android:layout_marginTop="32dp"-->
+<!--                android:layout_marginEnd="32dp"-->
+<!--                android:textSize="30sp"-->
+<!--                android:textStyle="bold"-->
+<!--                android:typeface="normal"-->
+<!--                android:text="@{viewModel.currentQuestion.text}"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                tools:text="What color is the Android mascot?"/>-->
+
+<!--            <androidx.recyclerview.widget.RecyclerView-->
+<!--                android:id="@+id/answersList"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="32dp"-->
+<!--                android:layout_marginTop="16dp"-->
+<!--                android:layout_marginEnd="32dp"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/questionText"-->
+<!--                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />-->
+
+<!--            <Button-->
+<!--                android:id="@+id/submitButton"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="32dp"-->
+<!--                android:layout_marginTop="16dp"-->
+<!--                android:layout_marginEnd="32dp"-->
+<!--                android:text="dalej"-->
+<!--                android:onClick="@{() -> viewModel.handleSubmitButton()}"-->
+<!--                android:textSize="18sp"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/answersList" />-->
+
+<!--            <Chronometer-->
+<!--                android:id="@+id/timer"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="16dp"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/submitButton" />-->
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+    </ScrollView>
+
+</layout>
