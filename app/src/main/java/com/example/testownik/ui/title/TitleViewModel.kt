@@ -53,6 +53,20 @@ class TitleViewModel(val database: BaseDatabaseDao,application: Application) :
         }
     }
 
+    private suspend fun removeBase(base: Base){
+        return withContext(Dispatchers.IO){
+            database.deleteBase(base)
+        }
+    }
+
+    fun removeBase(base: Base?){
+        viewModelScope.launch {
+            base?.let {
+                removeBase(it)
+            }
+        }
+    }
+
     private suspend fun insertBase(base: Base): Long{
         return withContext(Dispatchers.IO) {
             database.insertBase(base)

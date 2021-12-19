@@ -14,8 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="4dp"
-        android:layout_marginVertical="2dp"
-        android:backgroundTint="?attr/colorSecondary">
+        android:layout_marginVertical="2dp">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/card_view"
@@ -24,8 +23,7 @@
             android:checkable="true"
             android:clickable="true"
             android:focusable="true"
-            android:hapticFeedbackEnabled="true"
-            app:cardBackgroundColor="@color/list_element_selector">
+            android:backgroundTint="@color/teal_700">
 
             <LinearLayout
                 android:layout_width="match_parent"

@@ -11,6 +11,9 @@ interface BaseDatabaseDao {
     @Query("SELECT * FROM base_table")
     fun getBases(): LiveData<List<Base>>
 
+    @Delete
+    suspend fun deleteBase(base: Base)
+
     @Insert
     suspend fun insertQuestion(question: Question): Long
 
