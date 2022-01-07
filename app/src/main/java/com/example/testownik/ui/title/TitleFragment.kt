@@ -13,14 +13,17 @@ import com.example.testownik.database.BaseDatabase
 import com.example.testownik.databinding.FragmentTitleBinding
 import com.example.testownik.ui.FragmentFloatingActionButton
 import com.example.testownik.ViewModelFactory
+import com.example.testownik.database.BaseWithQuestions
+import com.google.android.material.snackbar.Snackbar
 
 class TitleFragment : Fragment(), FragmentFloatingActionButton,
     BaseSelectionAdapter.BaseSelectionAdapterListener {
 
     private lateinit var viewModel: TitleViewModel
+    private lateinit var binding: FragmentTitleBinding
 
     // fixme dodanie błędnej bazy
-    // fixme ArchiveSwipeActionDrawable przy dodawaniu się odpala
+    // fixme ArchiveSwipeActionDrawable kolorki kosza
     private val chooseQuestionFolder =
         registerForActivityResult(ActivityResultContracts.OpenDocumentTree()) { uri ->
             uri?.let {
@@ -47,7 +50,7 @@ class TitleFragment : Fragment(), FragmentFloatingActionButton,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding: FragmentTitleBinding = DataBindingUtil.inflate(
+        binding = DataBindingUtil.inflate(
             inflater,
             R.layout.fragment_title,
             container,
@@ -76,8 +79,21 @@ class TitleFragment : Fragment(), FragmentFloatingActionButton,
         chooseQuestionFolder.launch(null)
     }
 
-    override fun onBaseArchived(base: Base?) {
-        viewModel.removeBase(base)
+//    fixme questions aren't removed on time
+    override fun onBaseArchived(baseWithQuestions: BaseWithQuestions?) {
+        viewModel.removeBase(baseWithQuestions?.base)
+        Snackbar.make(
+            requireActivity().findViewById(R.id.mainActivity),
+            "Usunięto",
+            Snackbar.LENGTH_SHORT
+        ).setAction("Undo") {
+            viewModel.insertBase(baseWithQuestions?.base)
+            baseWithQuestions?.questions?.forEach {
+                viewModel.insertQuestion(it)
+            }
+        }
+            .setAnchorView(requireActivity().findViewById(R.id.fab))
+            .show()
     }
 }
 

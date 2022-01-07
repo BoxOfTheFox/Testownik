@@ -67,6 +67,14 @@ class TitleViewModel(val database: BaseDatabaseDao,application: Application) :
         }
     }
 
+    fun insertBase(base: Base?){
+        viewModelScope.launch {
+            base?.let {
+                insertBase(it)
+            }
+        }
+    }
+
     private suspend fun insertBase(base: Base): Long{
         return withContext(Dispatchers.IO) {
             database.insertBase(base)
@@ -76,6 +84,14 @@ class TitleViewModel(val database: BaseDatabaseDao,application: Application) :
     private suspend fun insertQuestion(question: Question): Long{
         return withContext(Dispatchers.IO){
             database.insertQuestion(question)
+        }
+    }
+
+    fun insertQuestion(question: Question?){
+        viewModelScope.launch {
+            question?.let {
+                insertQuestion(it)
+            }
         }
     }
 

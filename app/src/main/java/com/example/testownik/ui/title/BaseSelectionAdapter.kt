@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.testownik.database.Base
 import com.example.testownik.database.BaseWithQuestions
 import com.example.testownik.databinding.BaseItemLayoutBinding
 
@@ -13,7 +12,7 @@ class BaseSelectionAdapter(private val listener: BaseSelectionAdapterListener) :
     ListAdapter<BaseWithQuestions, BaseSelectionAdapter.ViewHolder>(BaseSelectionDiffCallback()) {
 
     interface BaseSelectionAdapterListener {
-        fun onBaseArchived(base: Base?)
+        fun onBaseArchived(baseWithQuestions: BaseWithQuestions?)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -35,14 +34,8 @@ class BaseSelectionAdapter(private val listener: BaseSelectionAdapterListener) :
 
         override fun onSwipeOffsetChanged(
             currentSwipePercentage: Float,
-            swipeThreshold: Float,
-            currentTargetHasMetThresholdOnce: Boolean
+            swipeThreshold: Float
         ) {
-            // Only alter shape and activation in the forward direction once the swipe
-            // threshold has been met. Undoing the swipe would require releasing the item and
-            // re-initiating the swipe.
-            if (currentTargetHasMetThresholdOnce) return
-
             // Start the background animation once the threshold is met.
             val thresholdMet = currentSwipePercentage >= swipeThreshold
 
@@ -50,7 +43,7 @@ class BaseSelectionAdapter(private val listener: BaseSelectionAdapterListener) :
         }
 
         override fun onSwiped() {
-            listener.onBaseArchived(binding.baseWithQuestions?.base)
+            listener.onBaseArchived(binding.baseWithQuestions)
         }
 
         init {
@@ -59,10 +52,6 @@ class BaseSelectionAdapter(private val listener: BaseSelectionAdapterListener) :
 
         fun bind(item: BaseWithQuestions) {
             binding.baseWithQuestions = item
-//            binding.cardView.setOnLongClickListener {
-//                it.isSelected = !it.isSelected
-//                true
-//            }
         }
 
         companion object {

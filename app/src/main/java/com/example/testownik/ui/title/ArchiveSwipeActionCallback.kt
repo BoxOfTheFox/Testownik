@@ -4,21 +4,15 @@ import android.graphics.Canvas
 import android.view.View
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import timber.log.Timber
 import kotlin.math.abs
-import kotlin.math.ln
 
-// The 'true' percentage of total swipe distance needed to consider a view as 'swiped'. This
-// is used in favor of getSwipeThreshold since that has been overridden to return an impossible
-// to reach value.
-private const val trueSwipeThreshold = 0.4F
+class ArchiveSwipeActionCallback :
+    ItemTouchHelper.SimpleCallback(
+        0,
+        ItemTouchHelper.LEFT
+    ) {
 
-class ArchiveSwipeActionCallback : ItemTouchHelper.SimpleCallback(
-    0,
-    ItemTouchHelper.LEFT
-) {
-
-    interface ArchiveViewHolder{
+    interface ArchiveViewHolder {
         /**
          * A view from the view holder which should be translated for swipe events.
          */
@@ -30,22 +24,14 @@ class ArchiveSwipeActionCallback : ItemTouchHelper.SimpleCallback(
          * @param currentSwipePercentage The total percentage the view has been swiped.
          * @param swipeThreshold The percentage needed to consider a swipe as "rebounded"
          *  or "swiped"
-         * @param currentTargetHasMetThresholdOnce Whether or not during a contiguous interaction
-         *  with a single view holder, the swipe percentage has ever been greater than the swipe
-         *  threshold.
          */
         fun onSwipeOffsetChanged(
             currentSwipePercentage: Float,
-            swipeThreshold: Float,
-            currentTargetHasMetThresholdOnce: Boolean
+            swipeThreshold: Float
         )
 
         fun onSwiped()
     }
-
-    // Track the view holder currently being swiped.
-    private var currentTargetPosition: Int = -1
-    private var currentTargetHasMetThresholdOnce: Boolean = false
 
     override fun onMove(
         recyclerView: RecyclerView,
@@ -53,8 +39,23 @@ class ArchiveSwipeActionCallback : ItemTouchHelper.SimpleCallback(
         target: RecyclerView.ViewHolder
     ): Boolean = false
 
-    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-        (viewHolder as ArchiveViewHolder).onSwiped()
+    override fun getMovementFlags(
+        recyclerView: RecyclerView,
+        viewHolder: RecyclerView.ViewHolder
+    ): Int {
+        return if (viewHolder is BaseSelectionAdapter.ViewHolder)
+            makeMovementFlags(0, ItemTouchHelper.START or ItemTouchHelper.END)
+        else
+            0
+    }
+
+    override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
+        getDefaultUIUtil().clearView((viewHolder as ArchiveViewHolder).swipeableView)
+    }
+
+    override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
+        if (viewHolder is ArchiveViewHolder)
+            getDefaultUIUtil().onSelected(viewHolder.swipeableView)
     }
 
     override fun onChildDraw(
@@ -66,25 +67,42 @@ class ArchiveSwipeActionCallback : ItemTouchHelper.SimpleCallback(
         actionState: Int,
         isCurrentlyActive: Boolean
     ) {
-        if (viewHolder !is ArchiveViewHolder) return
-        if (currentTargetPosition != viewHolder.adapterPosition) {
-            currentTargetPosition = viewHolder.adapterPosition
-            currentTargetHasMetThresholdOnce = false
-        }
-
-        val currentSwipePercentage = abs(dX) / viewHolder.itemView.width
-        viewHolder.onSwipeOffsetChanged(
-            currentSwipePercentage,
-            trueSwipeThreshold,
-            currentTargetHasMetThresholdOnce
+        getDefaultUIUtil().onDraw(
+            c,
+            recyclerView,
+            (viewHolder as ArchiveViewHolder).swipeableView,
+            dX,
+            dY,
+            actionState,
+            isCurrentlyActive
         )
-        viewHolder.swipeableView.translationX = dX
+        (viewHolder as ArchiveViewHolder).onSwipeOffsetChanged(
+            abs(dX) / viewHolder.swipeableView.width,
+            0.5f
+        )
+    }
 
-        if (currentSwipePercentage >= trueSwipeThreshold &&
-            !currentTargetHasMetThresholdOnce) {
-            currentTargetHasMetThresholdOnce = true
-        }
+    override fun onChildDrawOver(
+        c: Canvas,
+        recyclerView: RecyclerView,
+        viewHolder: RecyclerView.ViewHolder?,
+        dX: Float,
+        dY: Float,
+        actionState: Int,
+        isCurrentlyActive: Boolean
+    ) {
+        getDefaultUIUtil().onDrawOver(
+            c,
+            recyclerView,
+            (viewHolder as ArchiveViewHolder).swipeableView,
+            dX,
+            dY,
+            actionState,
+            isCurrentlyActive
+        )
+    }
 
-//        super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+        (viewHolder as ArchiveViewHolder).onSwiped()
     }
 }
