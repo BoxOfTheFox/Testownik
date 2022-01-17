@@ -1,13 +1,16 @@
 package com.example.testownik.database
 
 import androidx.room.*
+import com.example.testownik.ui.title.BaseState
 
 @Entity(tableName = "base_table", indices = [Index(value = ["title"], unique = true)])
 data class Base(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
 
-    val title: String
+    val title: String,
+
+    val state: BaseState
 )
 
 @Entity(

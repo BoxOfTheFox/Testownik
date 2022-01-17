@@ -44,7 +44,7 @@ class ArchiveSwipeActionCallback :
         viewHolder: RecyclerView.ViewHolder
     ): Int {
         return if (viewHolder is BaseSelectionAdapter.ViewHolder)
-            makeMovementFlags(0, ItemTouchHelper.START or ItemTouchHelper.END)
+            makeMovementFlags(0, ItemTouchHelper.LEFT)
         else
             0
     }

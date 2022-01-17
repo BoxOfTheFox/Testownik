@@ -53,45 +53,65 @@ class TitleViewModel(val database: BaseDatabaseDao,application: Application) :
         }
     }
 
-    private suspend fun removeBase(base: Base){
-        return withContext(Dispatchers.IO){
-            database.deleteBase(base)
-        }
-    }
-
-    fun removeBase(base: Base?){
-        viewModelScope.launch {
-            base?.let {
-                removeBase(it)
-            }
-        }
-    }
-
-    fun insertBase(base: Base?){
-        viewModelScope.launch {
-            base?.let {
-                insertBase(it)
-            }
-        }
-    }
-
     private suspend fun insertBase(base: Base): Long{
         return withContext(Dispatchers.IO) {
             database.insertBase(base)
         }
     }
 
-    private suspend fun insertQuestion(question: Question): Long{
+    private suspend fun updateBase(id: Long, state: BaseState){
         return withContext(Dispatchers.IO){
-            database.insertQuestion(question)
+            database.updateBaseStateWithId(id,state)
         }
     }
 
-    fun insertQuestion(question: Question?){
+    fun setBaseDeleted(id: Long){
         viewModelScope.launch {
-            question?.let {
-                insertQuestion(it)
-            }
+            updateBase(id, BaseState.DELETED)
+        }
+    }
+
+    private suspend fun updateBases(ids: List<Long>, state: BaseState){
+        return withContext(Dispatchers.IO){
+            database.updateBasesStateWithIds(ids, state)
+        }
+    }
+
+    fun setBasesDeleted(ids: List<Long>){
+        viewModelScope.launch {
+            updateBases(ids, BaseState.DELETED)
+        }
+    }
+
+    private suspend fun clearBasesWithState(state: BaseState){
+        return withContext(Dispatchers.IO){
+            database.clearBasesWithState(state)
+        }
+    }
+
+    fun clearBasesWithDeleteState(){
+        viewModelScope.launch {
+            clearBasesWithState(BaseState.DELETED)
+        }
+    }
+
+    private suspend fun setBasesWithStateToState(currentState: BaseState, targetState: BaseState){
+        return withContext(Dispatchers.IO){
+            database.updateBasesWithStateToState(currentState, targetState)
+        }
+    }
+
+    fun setBasesDeletedToActive(){
+        viewModelScope.launch {
+            setBasesWithStateToState(BaseState.DELETED, BaseState.ACTIVE)
+        }
+    }
+
+//    private suspend fun
+
+    private suspend fun insertQuestion(question: Question): Long{
+        return withContext(Dispatchers.IO){
+            database.insertQuestion(question)
         }
     }
 

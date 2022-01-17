@@ -10,7 +10,6 @@ import com.example.testownik.R
 import com.example.testownik.util.lerp
 import com.example.testownik.util.lerpArgb
 import com.google.android.material.color.MaterialColors
-import timber.log.Timber
 import kotlin.math.abs
 import kotlin.math.hypot
 import kotlin.math.sin
